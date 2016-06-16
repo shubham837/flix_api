@@ -32,6 +32,10 @@ If you don’t already have it installed, follow the instructions for your OS:
 4) Create Database Tables
     docker-compose -f dev.yml run flask python manage.py syncdb
 
+5) Copy CSV Data to postgres database:
+    Run script {./scripts/data_sync.sh} with parameters defined in script
+    Usage: ./scripts/data_sync.sh ../flixbus_data/homework_segments.csv ../flixbus_data/homework_route_segments.csv ../flixbus_data/homework_rides.csv ../flixbus_data/homework_tickets.csv
+
 5) Run the server
     docker-compose -f dev.yml up
 
