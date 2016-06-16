@@ -21,9 +21,6 @@ class Segment(db.Model):
     is_active = db.Column(db.Boolean, server_default=db.text("true"))
     pax_count = db.Column(db.Integer, nullable=True)
     revenue = db.Column(db.Float, nullable=True)
-#   route_segment_mappings = db.relationship('RouteSegmentMapping',
-#                                            back_populates='segment',
-#                                            lazy='joined')
 
     def __repr__(self):
         return ('Segment(id={segment_id}, from_stop={from_stop}, '
@@ -36,15 +33,16 @@ class Segment(db.Model):
 
 class Route(db.Model):
     __tablename__ = 'flb_route'
+
     id = db.Column(
         db.BigInteger, primary_key=True
     )
     created_ts = db.Column(db.DateTime(True), server_default=db.text("now()"))
-#   rides = db.relationship('Ride', back_populates='route', lazy='joined')
 
 
 class RouteSegmentMapping(db.Model):
     __tablename__ = 'flb_route_segment_mapping'
+
     id = db.Column(
         db.BigInteger, primary_key=True
     )
@@ -54,7 +52,6 @@ class RouteSegmentMapping(db.Model):
                            index=True)
     segment_sequence = db.Column(db.Integer)
     segment = db.relationship(u'Segment')
-#   route = db.relationship(u'Route')
 
 
 class Ride(db.Model):
@@ -66,6 +63,22 @@ class Ride(db.Model):
     from_stop = db.Column(db.Integer)
     destination_stop = db.Column(db.Integer)
     route_id = db.Column(db.ForeignKey(u'flb_route.id'), index=True)
-#   route = db.relationship(u'Route')
-#   tickets = db.relationship('Ticket', back_populates='ride',
-#                             lazy='joined')
+
+
+class Ticket(db.Model):
+    __tablename__ = 'flb_ticket'
+
+    id = db.Column(
+        db.BigInteger, primary_key=True
+    )
+    ride_id = db.Column(db.ForeignKey(u'flb_ride.id'), nullable=True,
+                        index=True)
+    from_stop = db.Column(db.Integer)
+    destination_stop = db.Column(db.Integer)
+    description = db.Column(db.Text)
+    transaction_hash = db.Column(db.Text)
+    price = db.Column(db.Float(53))
+    # currently created_ts is considered as date of journey
+    # ideally it should be different date
+    created_ts = db.Column(db.DateTime(True), server_default=db.text("now()"))
+    ride = db.relationship(u'Ride')

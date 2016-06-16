@@ -64,7 +64,7 @@ class SegmentUtils(object):
 
                     )
                 ]
-        tickets_for_rides = get_tickets_for_rides
+        tickets_for_rides = get_tickets_for_rides(route_ids)
         passenger_count = 0
         segment_revenue = 0
         for ticket in tickets_for_rides:

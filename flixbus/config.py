@@ -30,7 +30,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SQLALCHEMY_RECORD_QUERIES = True
-    DATABASE_QUERY_TIMEOUT = 0.05
+    DATABASE_QUERY_TIMEOUT = 0.50
 
 
 class TestingConfig(Config):

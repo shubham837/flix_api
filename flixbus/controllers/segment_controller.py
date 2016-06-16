@@ -3,6 +3,7 @@ from app import db
 import errors
 from sqlalchemy.orm.exc import NoResultFound
 from segment_utils import SegmentUtils
+from constants import DEFAULT_CURRENCY
 
 
 class SegmentBaseController(object):
@@ -14,7 +15,6 @@ class SegmentBaseController(object):
         self.limit = metadata.get('limit')
         self.get_pax = metadata.get('get_pax')
         self.get_revenue = metadata.get('get_revenue')
-
         filters = {}
         if 'from_stop' in metadata:
             self.filters['from_stop'] = metadata.get('from_stop')
@@ -41,6 +41,11 @@ class SegmentBaseController(object):
             'distance': serializable_data.distance,
             'is_active': serializable_data.is_active
         }
+        if self.get_pax:
+            serialized_segment['pax_count'] = serializable_data.pax_count
+        if self.get_revenue:
+            serializable_data['revenue'] = serializable_data.revenue
+            serializable_data['currency'] = DEFAULT_CURRENCY
         return serialized_segment
 
     @property
@@ -76,7 +81,6 @@ class SegmentListController(SegmentBaseController):
 class SegmentDetailController(SegmentBaseController):
     def __init__(self, segment_id, *args, **kwargs):
         self.segment_id = segment_id
-        self.data = kwargs.get('data')
         super(SegmentDetailController, self).__init__(*args, **kwargs)
 
     def _fetch(self, filters):

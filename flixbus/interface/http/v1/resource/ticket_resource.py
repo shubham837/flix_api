@@ -42,6 +42,7 @@ class TicketDetail(SchemaValidatorMixin, restful.Resource):
     decorators = [authenticate_user()]
     controller_class = TicketDetailController
     schema_validator_class = TicketHeadersSchema
+    __schema_args_source__ = ['request_headers', 'request_args']
 
     def get(self, ticket_id):
         controller = self.controller_class(ticket_id, metadata=self.metadata)

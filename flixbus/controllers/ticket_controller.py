@@ -1,4 +1,4 @@
-from models.ticket import Ticket
+from models.common import Ticket
 from app import db
 import errors
 from sqlalchemy.orm.exc import NoResultFound

@@ -5,6 +5,8 @@ Time_FORMAT = {
     'meridian_time': '%I:%M %p',
 }
 
+DEFAULT_CURRENCY = 'EURO'
+
 TIMEZONE = pytz.timezone('Asia/Kolkata')
 
 REDIS_AUTH_KEY_FORMAT = "gr_auth_key:%s"

@@ -45,6 +45,8 @@ class RouteDetail(SchemaValidatorMixin, restful.Resource):
     decorators = [authenticate_user()]
     controller_class = RouteDetailController
     schema_validator_class = RouteHeadersSchema
+    __schema_args_source__ = ['request_headers', 'request_args']
+
 
     def get(self, route_id):
         controller = self.controller_class(route_id, metadata=self.metadata)
@@ -98,6 +100,7 @@ class RideDetail(SchemaValidatorMixin, restful.Resource):
     decorators = [authenticate_user()]
     controller_class = RideDetailController
     schema_validator_class = RideHeadersSchema
+    __schema_args_source__ = ['request_headers', 'request_args']
 
     def get(self, route_id, ride_id):
         controller = self.controller_class(route_id, ride_id,

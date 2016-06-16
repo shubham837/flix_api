@@ -1,5 +1,4 @@
-from models.ticket import Ticket
-from models.common import Ride
+from models.common import Ride, Ticket
 
 
 def get_tickets_for_rides(route_ids):

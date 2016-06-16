@@ -41,6 +41,7 @@ class SegmentDetail(SchemaValidatorMixin, restful.Resource):
     decorators = [authenticate_user()]
     controller_class = SegmentDetailController
     schema_validator_class = SegmentHeadersSchema
+    __schema_args_source__ = ['request_headers', 'request_args']
 
     def get(self, segment_id):
         controller = self.controller_class(segment_id, metadata=self.metadata)

@@ -1,8 +1,7 @@
 from flask.ext.testing import TestCase
 from interface.http.v1.api import v1
 from app import create_app, db
-from models.common import Segment, Route, RouteSegmentMapping, Ride
-from models.ticket import Ticket
+from models.common import Segment, Route, RouteSegmentMapping, Ride, Ticket
 import json
 
 
