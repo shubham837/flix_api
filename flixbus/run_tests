@@ -1,0 +1,13 @@
+#!/bin/sh
+
+database_host=$(python -c "import secrets; print(secrets.db['host'])")
+database_user=$(python -c "import secrets; print(secrets.db['user'])")
+
+dropdb -h $database_host -U $database_user --if-exists test_local_db
+createdb -h $database_host -U $database_user test_local_db
+echo "Created test database test_local_db"
+echo "Running tests using nose2"
+nose2 --with-coverage --coverage-report html $1
+echo "Finished tests using nose2"
+dropdb -h $database_host -U $database_user test_local_db
+echo "Dropped test database test_local_db"

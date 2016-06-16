@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/postgres/Dockerfile-dev
+    environment:
+      - POSTGRES_USER=postgres
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:3.0
+
+  rcli:
+    build: ./compose/redis
+    links:
+      - redis
+
+  flask:
+    build:
+      context: .
+      dockerfile: ./compose/flask/Dockerfile-dev
+    command: python flixbus/runserver.py
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - .:/src
+    ports:
+      - "5000:5000"
+    links:
+      - postgres
+
