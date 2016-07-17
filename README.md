@@ -1,6 +1,5 @@
-# FLIXBUS ASSIGNMENT
+# FLIX API's
 ### Brief
-This Application is based on the task defined here: https://gist.github.com/sash-ko/9a0b29db8d63c471860ee35c7a90f398
 API Details are mentioned in following section:
 
 Technologies Used in Application:<br/>
